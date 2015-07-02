@@ -143,11 +143,13 @@ describe("archive helpers", function(){
       var urlArray = ["www.example.com", "www.google.com"];
       archive.downloadUrls(urlArray);
 
-      // Ugly hack to wait for all downloads to finish.
-      setTimeout(function () {
+
         expect(fs.readdirSync(archive.paths.archivedSites)).to.deep.equal(urlArray);
         done();
-      }, 25);
+      // Ugly hack to wait for all downloads to finish.
+      // setTimeout(function () {
+
+      // }, 2500);
     });
   });
 });
