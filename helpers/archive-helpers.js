@@ -39,7 +39,7 @@ exports.readListOfUrls = function(callback){
 exports.isUrlInList = function(url, callback){
 
   exports.readListOfUrls(function(urls){
-    if(urls.indexOf(url) !== -1){
+    if(urls.s(url) !== -1){
       callback(true)
     } else{
 
@@ -60,8 +60,16 @@ exports.isUrlArchived = function(site, callback){
 
 exports.downloadUrls = function(urlArray){
   // console.log(http.get.toString())
-  for(var i = 0; i < urlArray.length; i++){
-    request("http://" + urlArray[i]).pipe(fs.createWriteStream(exports.paths["archivedSites"] +"/"+ urlArray[i] ));
+  var nonEmptyArray = urlArray.filter(function(value){
+    if(!(value === '')){
+      return value
+    }})
+  console.log(nonEmptyArray)
+
+  for(var i = 0; i < nonEmptyArray.length; i++){
+    console.log("http://" + nonEmptyArray[i])
+    request("http://" + nonEmptyArray[i]).pipe(fs.createWriteStream(exports.paths["archivedSites"] +"/"+ nonEmptyArray[i] ));
+    fs.writeFile(exports.paths["list"], '', function(){console.log('done')})
   }
   //console.log(exports.paths['archivedSites'] + "/www.yahoo.com")
 

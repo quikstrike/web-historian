@@ -144,12 +144,12 @@ describe("archive helpers", function(){
       archive.downloadUrls(urlArray);
 
 
+
+      // Ugly hack to wait for all downloads to finish.
+      setTimeout(function () {
         expect(fs.readdirSync(archive.paths.archivedSites)).to.deep.equal(urlArray);
         done();
-      // Ugly hack to wait for all downloads to finish.
-      // setTimeout(function () {
-
-      // }, 2500);
+      }, 60000);
     });
   });
 });
